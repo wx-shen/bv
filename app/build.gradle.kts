@@ -60,6 +60,12 @@ android {
         create("default") {
             dimension = "channel"
         }
+        // 个人分支新增：TV 专用变体。
+        // 仅打包 tv 模块，且 TV 启动 Activity 使用标准 LAUNCHER 入口（见 src/tvonly/AndroidManifest.xml），
+        // 以解决国产非认证 Android TV 盒子只认 LAUNCHER、不认 LEANBACK_LAUNCHER 而误启动手机版的问题。
+        create("tvonly") {
+            dimension = "channel"
+        }
     }
 
     buildTypes {
@@ -169,7 +175,9 @@ java {
 }
 
 dependencies {
-    implementation(project(":app:mobile"))
+    // mobile 模块仅在含手机版的渠道中打包；tvonly 变体不包含 mobile。
+    "liteImplementation"(project(":app:mobile"))
+    "defaultImplementation"(project(":app:mobile"))
     implementation(project(":app:tv"))
 }
 

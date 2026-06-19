@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  TV 专用变体的清单覆盖。
+
+  背景：国产非认证 Android TV 盒子的桌面只识别标准的 android.intent.category.LAUNCHER，
+  不识别 LEANBACK_LAUNCHER，导致它们找不到（或只在合并版里启动手机版）TV 入口。
+
+  本变体已在 build.gradle.kts 中排除 mobile 模块，因此这里给 TV 的 MainActivity
+  补一个标准 LAUNCHER 入口，使所有设备（认证 TV / 国产盒子 / 普通 Android）都能直接进入 TV 版。
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+            android:name="dev.aaa1115910.bv.tv.activities.MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
